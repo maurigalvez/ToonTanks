@@ -18,15 +18,15 @@ public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;	
+	// rotate turret mesh towards target
+	virtual void RotateTurretFunction(FVector LookAtTarget);
+
+	// will spawn projectile and fire it in look direction
+	virtual void Fire();
+
+	// handle turret destruction (spawn vfx/sfx) 
+	virtual void  HandleDestruction();
 
 private:
 	// collision component

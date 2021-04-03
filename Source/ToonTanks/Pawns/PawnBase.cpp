@@ -30,24 +30,31 @@ APawnBase::APawnBase()
 
 }
 
-// Called when the game starts or when spawned
-void APawnBase::BeginPlay()
+void APawnBase::RotateTurretFunction(FVector LookAtTarget)
 {
-	Super::BeginPlay();
-	
+	// clean to handle rotation
+	FVector LookAtTargerClean = FVector(LookAtTarget.X, LookAtTarget.Y, this->TurretMesh->GetComponentLocation().Z);
+	// start location
+	FVector StartLocation = this->TurretMesh->GetComponentLocation();
+
+	// Update turret mesh rotation to face towards look at target from child classes
+	// we use the direction towards look at target
+	FRotator turretRotation = FVector(LookAtTargerClean - StartLocation).Rotation();
+
+	this->TurretMesh->SetWorldRotation(turretRotation);
 }
 
-// Called every frame
-void APawnBase::Tick(float DeltaTime)
+void APawnBase::Fire()
 {
-	Super::Tick(DeltaTime);
-
+	// Get Projectile spawn points location && rotation - > spawn projectile class at location firing towards rotation
+	UE_LOG(LogTemp, Display, TEXT("Firing"));
 }
 
-// Called to bind functionality to input
-void APawnBase::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void APawnBase::HandleDestruction()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	// Play death effects particle, sound and camera shake
 
+	// pawn turret - inform game mode turret died -> then destroy() self
+
+	// pawn tank - inform game mode player died -> then hide() all components && stop movement input
 }
-
