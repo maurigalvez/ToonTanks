@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/DamageType.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AProjectileBase::AProjectileBase()
@@ -27,6 +28,27 @@ AProjectileBase::AProjectileBase()
 void AProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
+	// register event when this component is hit
+	this->ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
+}
+
+void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	// make sure you cannot collide against yourself
+	AActor* projectileOwner = this->GetOwner();
+	if (projectileOwner == nullptr)
+	{
+		return;
+	}
+	// check whether you should apply damage 
+	if (OtherActor && OtherActor != this && OtherActor != projectileOwner)
+	{
+		UGameplayStatics::ApplyDamage(OtherActor, this->Damage, this->GetOwner()->GetInstigatorController(), this, this->DamageType);
+	}
+	
+	// play visual effects here!
+
+	Destroy();
 }
 
 
