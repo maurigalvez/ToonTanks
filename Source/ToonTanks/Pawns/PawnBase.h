@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "ToonTanks/ProjectileBase.h"
 #include "PawnBase.generated.h"
 
 class UCapsuleComponent;	// this also works as an include, the main difference is that include also allow access to functions/ properties
@@ -29,6 +30,8 @@ protected:
 	virtual void  HandleDestruction();
 
 private:
+    
+	// COMPONENTS
 	// collision component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category ="Components", meta = (AllowPrivateAccess = "true"))
 	UCapsuleComponent* CapsuleComp = nullptr;
@@ -42,4 +45,7 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint = nullptr;
 
+	// VARIABLES
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<AProjectileBase> ProjectileToSpawn;
 };
