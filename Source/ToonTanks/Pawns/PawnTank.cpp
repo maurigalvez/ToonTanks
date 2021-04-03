@@ -6,6 +6,7 @@
 #include "Components/InputComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/PlayerController.h"
 
 // constructor
 APawnTank::APawnTank()
@@ -22,6 +23,14 @@ APawnTank::APawnTank()
 void APawnTank::BeginPlay()
 {
 	Super::BeginPlay();
+	// get player controller reference
+	this->PlayerController = Cast<APlayerController>(this->GetController());
+}
+
+void APawnTank::HandleDestruction()
+{
+	Super::HandleDestruction();
+	// Hide player. Create new function to handle this
 }
 
 void APawnTank::Tick(float DeltaTime)
@@ -30,6 +39,16 @@ void APawnTank::Tick(float DeltaTime)
 	// you rotate before you move
 	this->Rotate();
 	this->Move();
+	
+	if (this->PlayerController != NULL)
+	{
+		// this will return world position from cursor position on screen
+		FHitResult hitResult;
+		this->PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, hitResult);
+		FVector hitLocation = hitResult.ImpactPoint;
+		// rotate tank turret
+		RotateTurret(hitLocation);
+	}
 }
 
 void APawnTank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
@@ -38,6 +57,8 @@ void APawnTank::SetupPlayerInputComponent(class UInputComponent* PlayerInputComp
 	// bind player movemnt
 	PlayerInputComponent->BindAxis("MoveForward", this, &APawnTank::CalculateMoveInput);
 	PlayerInputComponent->BindAxis("Turn", this, &APawnTank::CalculateRotateInput);
+	// bind fire action
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &APawnTank::Fire);
 }
 
 void APawnTank::CalculateMoveInput(float Value)

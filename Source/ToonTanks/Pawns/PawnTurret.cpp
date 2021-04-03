@@ -28,6 +28,12 @@ void APawnTurret::BeginPlay()
 	UE_LOG(LogTemp, Display, TEXT("Initialized"), *this->GetName());
 }
 
+void APawnTurret::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
+}
+
 void APawnTurret::CheckFireCondition()
 {
 	// If player == NULL or Is Dead then bail'
@@ -57,11 +63,11 @@ float APawnTurret::ReturnDistanceToPlayer()
 void APawnTurret::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (this->PlayerPawn == NULL || this->ReturnDistanceToPlayer() < this->FireRange)
+	// if no player was found or out of range then return
+	if (this->PlayerPawn == NULL || this->ReturnDistanceToPlayer() > this->FireRange)
 	{
 		return;
 	}
 	// look at player
-	this->RotateTurretFunction(this->PlayerPawn->GetActorLocation());
+	this->RotateTurret(this->PlayerPawn->GetActorLocation());
 }

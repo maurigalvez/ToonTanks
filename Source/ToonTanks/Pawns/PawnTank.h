@@ -31,6 +31,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void HandleDestruction() override;
+
 private: 
 	// calculate move direction for this pawn
 	void CalculateMoveInput(float Value);
@@ -64,5 +66,7 @@ private:
 
 	// quaternion that defines rotation of tank
 	FQuat RotationDirection = FQuat::Identity;
+
+	APlayerController* PlayerController = nullptr;
 
 };

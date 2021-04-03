@@ -20,7 +20,7 @@ public:
 
 protected:
 	// rotate turret mesh towards target
-	virtual void RotateTurretFunction(FVector LookAtTarget);
+	virtual void RotateTurret(FVector LookAtTarget);
 
 	// will spawn projectile and fire it in look direction
 	virtual void Fire();

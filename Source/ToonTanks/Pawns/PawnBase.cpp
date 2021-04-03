@@ -30,7 +30,7 @@ APawnBase::APawnBase()
 
 }
 
-void APawnBase::RotateTurretFunction(FVector LookAtTarget)
+void APawnBase::RotateTurret(FVector LookAtTarget)
 {
 	// clean to handle rotation
 	FVector LookAtTargerClean = FVector(LookAtTarget.X, LookAtTarget.Y, this->TurretMesh->GetComponentLocation().Z);
