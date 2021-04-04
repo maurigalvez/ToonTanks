@@ -60,4 +60,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	USoundBase* LaunchSound = nullptr;
+
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	TSubclassOf<UCameraShake> HitShake;
 };

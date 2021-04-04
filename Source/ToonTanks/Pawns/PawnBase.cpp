@@ -68,4 +68,6 @@ void APawnBase::HandleDestruction()
 	// Play death effects particle, sound and camera shake
 	UGameplayStatics::SpawnEmitterAtLocation(this, this->DeathParticle, this->GetActorLocation());
 	UGameplayStatics::PlaySoundAtLocation(this, this->DeathSound, this->GetActorLocation());
+	// play camera shake
+	this->GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(this->ExplosionShake);
 }

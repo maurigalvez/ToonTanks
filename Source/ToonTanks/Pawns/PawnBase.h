@@ -32,7 +32,9 @@ protected:
 
 private:
     
+	// ---------
 	// COMPONENTS
+	// ---------
 	// collision component
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category ="Components", meta = (AllowPrivateAccess = "true"))
 	UCapsuleComponent* CapsuleComp = nullptr;
@@ -49,7 +51,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	UHealthComponent* HealthComponent = nullptr;
 
+	// ---------
 	// VARIABLES
+	// ---------
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileToSpawn;
 
@@ -57,5 +61,8 @@ private:
 	UParticleSystem* DeathParticle;
 
 	UPROPERTY(EditAnywhere, Category = "Effects")
-	USoundBase* DeathSound;
+	USoundBase* DeathSound;	
+
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	TSubclassOf<UCameraShake> ExplosionShake;
 };
