@@ -27,11 +27,18 @@ void APawnTank::BeginPlay()
 	this->PlayerController = Cast<APlayerController>(this->GetController());
 }
 
+bool APawnTank::CheckIsPlayerAlive()
+{
+	return this->IsPlayerAlive;
+}
+
 void APawnTank::HandleDestruction()
 {
 	Super::HandleDestruction();
 	// Hide player. Create new function to handle this
-	Destroy();
+	this->IsPlayerAlive;
+	this->SetActorHiddenInGame(true);
+	this->SetActorTickEnabled(false);
 }
 
 void APawnTank::Tick(float DeltaTime)

@@ -8,7 +8,7 @@
 
 class APawnTank;
 class APawnTurret;
-
+class APlayerControllerBase;
 /**
  * Handle Tank Game rules
  */
@@ -47,7 +47,8 @@ private:
 	// ----------
 	// PROPERTIES
 	// -----------
-	APawnTank* PlayerTank;
-	int32 TargetTurrets;
+	APawnTank* PlayerTank = nullptr;
+	int32 TargetTurrets = 0;
+	APlayerControllerBase* PlayerController = nullptr;
 	
 };

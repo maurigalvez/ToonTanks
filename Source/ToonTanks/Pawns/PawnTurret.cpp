@@ -37,9 +37,8 @@ void APawnTurret::HandleDestruction()
 void APawnTurret::CheckFireCondition()
 {
 	// If player == NULL or Is Dead then bail'
-	if (this->PlayerPawn == NULL)
-	{
-		UE_LOG(LogTemp, Error, TEXT("No player pawn was found in %s"), *this->GetName());
+	if (this->PlayerPawn == NULL || !this->PlayerPawn->CheckIsPlayerAlive())
+	{		
 		return;
 	}
 	// Check if player is within range
@@ -64,7 +63,7 @@ void APawnTurret::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	// if no player was found or out of range then return
-	if (this->PlayerPawn == NULL || this->ReturnDistanceToPlayer() > this->FireRange)
+	if (this->PlayerPawn == NULL || !this->PlayerPawn->CheckIsPlayerAlive() || this->ReturnDistanceToPlayer() > this->FireRange)
 	{
 		return;
 	}

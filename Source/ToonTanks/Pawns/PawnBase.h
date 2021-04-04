@@ -7,6 +7,7 @@
 #include "ToonTanks/ProjectileBase.h"
 #include "PawnBase.generated.h"
 
+class UHealthComponent;
 class UCapsuleComponent;	// this also works as an include, the main difference is that include also allow access to functions/ properties
 							// where this won't
 
@@ -47,7 +48,13 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	USceneComponent* ProjectileSpawnPoint = nullptr;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	UHealthComponent* HealthComponent = nullptr;
+
 	// VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Projectile Type", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<AProjectileBase> ProjectileToSpawn;
+
+	UPROPERTY(EditAnywhere, Category ="Effects")
+	UParticleSystem* DeathParticle;
 };

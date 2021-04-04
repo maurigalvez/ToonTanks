@@ -28,6 +28,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	virtual void HandleDestruction() override;
+
+	bool CheckIsPlayerAlive();
 	
 protected:
 	// Called when the game starts or when spawned
@@ -68,5 +70,7 @@ private:
 	FQuat RotationDirection = FQuat::Identity;
 
 	APlayerController* PlayerController = nullptr;
+
+	bool IsPlayerAlive = true;
 
 };
