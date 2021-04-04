@@ -71,3 +71,13 @@ void APawnBase::HandleDestruction()
 	// play camera shake
 	this->GetWorld()->GetFirstPlayerController()->ClientPlayCameraShake(this->ExplosionShake);
 }
+
+float APawnBase::GetHealthPercentage()
+{
+	if (this->HealthComponent == nullptr)
+	{
+		return 0.0f;
+	}
+
+	return this->HealthComponent->GetHealthPercentage();
+}

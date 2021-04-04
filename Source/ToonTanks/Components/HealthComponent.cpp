@@ -13,6 +13,15 @@ UHealthComponent::UHealthComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+float UHealthComponent::GetHealthPercentage()
+{
+	if (this->Health <= 0)
+	{
+		return 0.0f;
+	}
+	return this->Health / this->DefaultHealth;
+}
+
 // Called when the game starts
 void UHealthComponent::BeginPlay()
 {

@@ -23,6 +23,9 @@ public:
 	// handle turret destruction (spawn vfx/sfx) 
 	virtual void  HandleDestruction();
 
+	// return this pawn health percentage
+	virtual float GetHealthPercentage();
+
 protected:
 	// rotate turret mesh towards target
 	virtual void RotateTurret(FVector LookAtTarget);

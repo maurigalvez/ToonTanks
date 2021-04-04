@@ -19,7 +19,15 @@ class TOONTANKS_API ATankGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 
 public:
+
 	void ActorDied(AActor* DeadActor);
+
+	UFUNCTION(BlueprintCallable)
+	// return current target count
+	int32 GetTargetTurretCount();
+
+	UFUNCTION(BlueprintCallable)
+	float GetPlayerHealthPercentage();
 
 protected:
 
@@ -37,6 +45,9 @@ protected:
 	UFUNCTION(BlueprintImplementableEvent)
 	void GameOver(bool PlayerWon);
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void UpdateTurretCount(int turretCount);
+
 private:
 
 	// used to handle game start
@@ -47,9 +58,6 @@ private:
 
 	// Spawn enemies
 	void SpawnEnemies();
-
-	// return current target count
-	int32 GetTargetTurretCount();
 
 	// ----------
 	// PROPERTIES
