@@ -20,8 +20,6 @@ public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
-	void PawnDestroyed();
-
 	// handle turret destruction (spawn vfx/sfx) 
 	virtual void  HandleDestruction();
 
@@ -57,4 +55,7 @@ private:
 
 	UPROPERTY(EditAnywhere, Category ="Effects")
 	UParticleSystem* DeathParticle;
+
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	USoundBase* DeathSound;
 };

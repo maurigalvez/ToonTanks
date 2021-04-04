@@ -6,6 +6,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 AProjectileBase::AProjectileBase()
@@ -15,6 +16,9 @@ AProjectileBase::AProjectileBase()
 
 	this->ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
 	this->RootComponent = this->ProjectileMesh;
+
+	this->ParticleTrail = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Particle Trail"));
+	this->ParticleTrail->SetupAttachment(this->RootComponent);
 
 	this->ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
 	this->ProjectileMovement->InitialSpeed = this->MoveSpeed;
@@ -30,6 +34,8 @@ void AProjectileBase::BeginPlay()
 	Super::BeginPlay();
 	// register event when this component is hit
 	this->ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileBase::OnHit);
+	// play sound 
+	UGameplayStatics::PlaySoundAtLocation(this, this->LaunchSound, this->GetActorLocation());
 }
 
 void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -45,10 +51,8 @@ void AProjectileBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UP
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, this->Damage, this->GetOwner()->GetInstigatorController(), this, this->DamageType);
 		// play visual effects here!
-		if (this->HitParticle)
-		{
-			UGameplayStatics::SpawnEmitterAtLocation(this, this->HitParticle, this->GetActorLocation());
-		}
+		UGameplayStatics::SpawnEmitterAtLocation(this, this->HitParticle, this->GetActorLocation());
+		UGameplayStatics::PlaySoundAtLocation(this, this->HitSound, this->GetActorLocation());
 		Destroy();
 	}		
 }
