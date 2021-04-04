@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "TankGameModeBase.generated.h"
 
+class APawnTurret;
 class APawnTank;
 class APawnTurret;
 class APlayerControllerBase;
@@ -25,6 +26,9 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Loop")
 	int32 StartDelay = 3;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Settings")
+	TSubclassOf<APawnTurret> EnemyToSpawn;
+
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -40,6 +44,9 @@ private:
 
 	// use to handle game over
 	void HandleGameOver(bool PlayerWon);
+
+	// Spawn enemies
+	void SpawnEnemies();
 
 	// return current target count
 	int32 GetTargetTurretCount();

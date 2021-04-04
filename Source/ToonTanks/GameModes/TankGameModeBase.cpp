@@ -5,9 +5,11 @@
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "ToonTanks/Actors/SpawnPoint.h"
 #include "ToonTanks/Pawns/PawnTank.h"
 #include "ToonTanks/Pawns/PawnTurret.h"
 #include "ToonTanks/PlayerControllers/PlayerControllerBase.h"
+
 
 void ATankGameModeBase::BeginPlay()
 {
@@ -43,6 +45,7 @@ void ATankGameModeBase::ActorDied(AActor* DeadActor)
 
 void ATankGameModeBase::HandleGameStart()
 {
+	this->SpawnEnemies();
 	// Initialize the start countdown, turret activation, pawn check et.
 	this->TargetTurrets = this->GetTargetTurretCount();
 	// get player tank ref
@@ -75,6 +78,19 @@ void ATankGameModeBase::HandleGameOver(bool PlayerWon)
 	{
 		// disable player controller
 		this->PlayerController->SetPlayerEnabledState(false);
+	}
+}
+
+void ATankGameModeBase::SpawnEnemies()
+{
+	TArray<AActor*> spawnPoints;
+	UGameplayStatics::GetAllActorsOfClass(this->GetWorld(), ASpawnPoint::StaticClass(), spawnPoints);
+
+	// iterate through spawnPoints to spawn turrets
+	for (AActor* spawnPoint : spawnPoints)
+	{
+		// spawn actor
+		GetWorld()->SpawnActor<APawnTurret>(this->EnemyToSpawn, spawnPoint->GetActorLocation(), spawnPoint->GetActorRotation());
 	}
 }
 
