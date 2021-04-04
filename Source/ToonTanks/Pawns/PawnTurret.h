@@ -35,11 +35,29 @@ private:
 	// return distance between this pawn turret and player pawn
 	float ReturnDistanceToPlayer();
 
+	// simulate looking for player
+	void LookForPlayer(float DeltaTime);
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float FireRate = 2.0f;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
 	float FireRange = 500.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float SurveillanceRotationSpeed = 10.f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+	float SurveillanceAngle = 25.f;
+	
+	// Yaw turret mesh starts at
+	float StartYawAngle = 0;
+
+	// Delay before turret can start doing surveillance
+	float RandomDelay = 0;
+
+	// How much time has passed since turret is doing surveillance
+	float RunningTime = 0;
 
 	FTimerHandle FireRateTimerHandle;
 

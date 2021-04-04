@@ -30,8 +30,6 @@ protected:
 	// will spawn projectile and fire it in look direction
 	virtual void Fire();
 
-private:
-    
 	// ---------
 	// COMPONENTS
 	// ---------
