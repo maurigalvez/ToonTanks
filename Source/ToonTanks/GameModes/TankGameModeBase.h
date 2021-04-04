@@ -6,8 +6,11 @@
 #include "GameFramework/GameModeBase.h"
 #include "TankGameModeBase.generated.h"
 
+class APawnTank;
+class APawnTurret;
+
 /**
- * 
+ * Handle Tank Game rules
  */
 UCLASS()
 class TOONTANKS_API ATankGameModeBase : public AGameModeBase
@@ -18,6 +21,10 @@ public:
 	void ActorDied(AActor* DeadActor);
 
 protected:
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Game Loop")
+	int32 StartDelay = 3;
+
 	virtual void BeginPlay() override;
 
 	UFUNCTION(BlueprintImplementableEvent)
@@ -27,9 +34,20 @@ protected:
 	void GameOver(bool PlayerWon);
 
 private:
+
 	// used to handle game start
 	void HandleGameStart();
+
 	// use to handle game over
 	void HandleGameOver(bool PlayerWon);
+
+	// return current target count
+	int32 GetTargetTurretCount();
+
+	// ----------
+	// PROPERTIES
+	// -----------
+	APawnTank* PlayerTank;
+	int32 TargetTurrets;
 	
 };

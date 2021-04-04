@@ -19,15 +19,17 @@ public:
 	// Sets default values for this pawn's properties
 	APawnBase();
 
+	void PawnDestroyed();
+
+	// handle turret destruction (spawn vfx/sfx) 
+	virtual void  HandleDestruction();
+
 protected:
 	// rotate turret mesh towards target
 	virtual void RotateTurret(FVector LookAtTarget);
 
 	// will spawn projectile and fire it in look direction
 	virtual void Fire();
-
-	// handle turret destruction (spawn vfx/sfx) 
-	virtual void  HandleDestruction();
 
 private:
     

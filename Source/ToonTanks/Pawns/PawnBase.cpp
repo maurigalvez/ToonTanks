@@ -58,6 +58,10 @@ void APawnBase::Fire()
 	}
 }
 
+void APawnBase::PawnDestroyed()
+{
+}
+
 void APawnBase::HandleDestruction()
 {
 	// Play death effects particle, sound and camera shake
